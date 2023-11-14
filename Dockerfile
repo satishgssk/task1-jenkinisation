@@ -12,10 +12,10 @@ WORKDIR /app
 
 COPY . .
 
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 
 EXPOSE 5500
 
-ENV YOUR_NAME="Piers"
+ENV YOUR_NAME="Sathish"
 
 ENTRYPOINT [ "python", "app.py" ]
