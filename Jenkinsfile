@@ -4,23 +4,23 @@ pipeline {
         stage('Build') {
             steps {
                sh '''
-                docker build -t satishgssk/task1jenk .
+                docker build -t satishgssk/task1-nginx .
                 '''
             }
         }
         stage('Push') {
             steps {
                sh '''
-                docker push satishgssk/task1jenk
+                docker push satishgssk/task1-nginx
                 '''
             }
         }
         stage('Deploy') {
             steps { 
                 sh '''
-                docker stop task1
-                docker rm task1
-                docker run -d -p 80:5500 --name task1 satishgssk/task1jenk
+                docker stop flask-app-sat && echo "stopped flask-app-sat" || echo "flask-app-sat is not running"
+                docker rm flask-app-sat && echo "removed flask-app-sat" || echo "flask-app-sat is not running"
+                docker run -d --name flask-app-sat --network nginx-net satishgssk/task1-nginx
                 '''
             }
         }
