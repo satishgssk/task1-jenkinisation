@@ -31,7 +31,9 @@ pipeline {
                 docker rm task1-nginx && echo "removed task1-nginx" || echo "task1-nginx is not running"
                 docker stop flask-app && echo "stopped flask-app" || echo "flask-app is not running"
                 docker rm flask-app && echo "removed flask-app" || echo "flask-app is not running"
-                docker run -d --name flask-app --network task1-net -e YOUR_NAME=${YOUR_NAME} satishgssk/task1-app
+                docker run -d --name flask-app-1 --network task1-net -e YOUR_NAME=${YOUR_NAME} satishgssk/task1-app
+                docker run -d --name flask-app-2 --network task1-net -e YOUR_NAME=${YOUR_NAME} satishgssk/task1-app
+                docker run -d --name flask-app-3 --network task1-net -e YOUR_NAME=${YOUR_NAME} satishgssk/task1-app
                 docker run -d --name task1-nginx --network task1-net -p 80:80 satishgssk/task1-nginx
                 '''
             }
