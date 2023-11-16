@@ -25,6 +25,8 @@ pipeline {
                 sh '''
                 ssh jenkins@satish-deploy <<EOF
                 export YOUR_NAME=${YOUR_NAME}
+                docker pull satishgssk/task1-app
+                docker pull satishgssk/task1-nginx
                 docker network rm task1-net && echo "removed task1-net" || echo "already removed task1-net"
                 docker network create task1-net
                 docker stop task1-nginx && echo "stopped task1-nginx" || echo "task1-nginx is not running"
