@@ -22,8 +22,8 @@ metadata:
 spec:
   volumes:
   - name: task1-nginx-vol
-  configMap: 
-    name: task1-nginx-config
+    configMap: 
+      name: task1-nginx-config
   containers:
   - name: task1-nginx
     imagePullPolicy: IfNotPresent
