@@ -28,7 +28,10 @@ spec:
      - containerPort: 5500
     env:
     - name: YOUR_NAME
-      value: Sathish-Kubernetes-1
+      valueFrom: 
+        secretKeyRef:
+          name: user-name
+          key: userName
   
    
  
