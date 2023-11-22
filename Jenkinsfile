@@ -21,7 +21,7 @@ pipeline {
         stage('Deploy') {
             steps { 
                 sh '''
-                sed -e 's, {{userName}}, ${YOUR_NAME}, g;' user-secret.yaml | kubectl apply -f -
+                sed -e 's, {{userName}}, '${YOUR_NAME}', g;' user-secret.yaml | kubectl apply -f -
                 kubectl apply -f task1-app-manifest.yaml
                 kubectl apply -f task1-nginx-manifest.yaml
                 sleep 60
