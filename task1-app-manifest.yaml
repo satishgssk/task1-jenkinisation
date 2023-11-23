@@ -35,10 +35,7 @@ spec:
     spec:
       containers:
       - name: task1-app
-        imagePullpolicy: Always
         image: satishgssk/task1-app:v{{version}}
-        ports:
-        - containerPort: 5500
         env:
         - name: YOUR_NAME
           value: {{userName}}
