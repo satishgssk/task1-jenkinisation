@@ -39,12 +39,10 @@ pipeline {
         stage('Prod Deploy') {
             steps { 
                 sh '''
-                sed -e 's, {{userName}}, '${YOUR_NAME}', g;' -e 's, {{version}}, '${BUILD_NUMBER}', g;' task1-app-manifest.yaml | kubectl apply -f - --namespace prod
+                sed -e 's,{{userName}},'${YOUR_NAME}', g;' -e 's,{{version}},'${BUILD_NUMBER}',g;' task1-app-manifest.yaml | kubectl apply -f - --namespace staging
                 kubectl apply -f task1-nginx-manifest.yaml --namespace prod
                 sleep 50
-                export PROD_IP=\$(kubectl get svc -o json --namespace prod | jq '.items[] | select(.metadata.name == "nginx") | .status.loadBalancer.ingress[0].ip' | tr -d '"')
-                echo $PROD_IP
-                kubectl get services
+                kubectl get services --namespace prod
                 '''
             }
         }
