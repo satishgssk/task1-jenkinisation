@@ -14,24 +14,35 @@ spec:
 ---
 
 apiVersion: v1
-kind: Pod
+kind: Deployment
 metadata: 
  name: task1-app
  labels:
   app: task1-app
 spec:
-  containers:
-  - name: task1-app
-    imagePullPolicy: Always
-    image: satishgssk/task1-app
-    ports: 
-     - containerPort: 5500
-    env:
-    - name: YOUR_NAME
-      valueFrom: 
-        secretKeyRef:
-          name: user-name
-          key: userName
+  strategy: 
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 50%
+  selector: 
+    matchLabels:
+      app: task1-app
+  replicas: 2
+  template: 
+    metadata:
+       labels:
+         app: task1-app
+    spec:
+      containers:
+      - name: task1-app
+        imagePullpolicy: Always
+        image: satishgssk/task1-app:v{{version}}
+        ports:
+        - containerPort: 5500
+        env:
+        - name: YOUR_NAME
+          value: {{userName}}
+
   
    
  

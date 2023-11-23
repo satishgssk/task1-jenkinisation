@@ -13,23 +13,36 @@ spec:
 ---
 
 apiVersion: v1
-kind: Pod
+kind: Deployment
 metadata: 
  name: task1-nginx
  labels:
   app: task1-nginx
-spec:
-  volumes:
-  - name: task1-nginx-vol
-    configMap: 
-      name: task1-nginx-config
-  containers:
-  - name: task1-nginx
-    imagePullPolicy: IfNotPresent
-    image: nginx:alpine
-    volumeMounts:
-    - name: task1-nginx-vol
-      mountPath: /etc/nginx
+Spec: 
+  strategy:
+    rollingUpdate:
+      maxSurge: 33%
+      maxUnavailable: 33%
+  selector: 
+    matchLabels:
+      app: task1-nginx
+  replicas: 2
+  template:
+    metadata:
+       labels:
+         app: task1-nginx
+    spec: 
+      volumes:
+      - name: task1-nginx-vol
+        configMap: 
+        name: task1-nginx-config
+      containers:
+      - name: task1-nginx
+        imagePullPolicy: IfNotPresent
+        image: nginx:alpine
+        volumeMounts:
+        - name: task1-nginx-vol
+          mountPath: /etc/nginx
 
 ---
 
