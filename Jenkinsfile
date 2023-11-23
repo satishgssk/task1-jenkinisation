@@ -39,7 +39,7 @@ pipeline {
         stage('Prod Deploy') {
             steps { 
                 sh '''
-                sed -e 's,{{userName}},'${YOUR_NAME}', g;' -e 's,{{version}},'${BUILD_NUMBER}',g;' task1-app-manifest.yaml | kubectl apply -f - --namespace staging
+                sed -e 's,{{userName}},'${YOUR_NAME}', g;' -e 's,{{version}},'${BUILD_NUMBER}',g;' task1-app-manifest.yaml | kubectl apply -f - --namespace prod
                 kubectl apply -f task1-nginx-manifest.yaml --namespace prod
                 sleep 50
                 kubectl get services --namespace prod
