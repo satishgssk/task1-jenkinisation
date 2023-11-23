@@ -12,17 +12,17 @@ spec:
 
 ---
 
-apiVersion: v1
+apiVersion: apps/v1
 kind: Deployment
 metadata: 
  name: task1-nginx
  labels:
   app: task1-nginx
-Spec: 
+spec: 
   strategy:
     rollingUpdate:
-      maxSurge: 33%
-      maxUnavailable: 33%
+      maxSurge: 50%
+      maxUnavailable: 50%
   selector: 
     matchLabels:
       app: task1-nginx
